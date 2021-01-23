@@ -1,37 +1,26 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, redirect, render_template, request, url_for, seession
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = '19999900'
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@127.0.0.1:3306/flasktest1"
+app.secret_key = "session"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://root:root@127.0.0.1:3306/flasktest1"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # ORM
 db = SQLAlchemy(app)
 
-class Role(db.Model):
-    __tablename__ = "roles"
+class GRNA(db.Model):
+    __tablename__ = 'grna'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(32))
-
-    users = db.relationship("User", backref="role", lazy="dynamic")
-
-    def __repr__(self):
-        return "<Role:%s>" % self.name
-
-
-class User(db.Model):
-    __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(32))
-    email = db.Column(db.String(32))
-    password = db.Column(db.String(32))
-
-    role_id = db.Column(db.Integer, db.ForeignKey(Role.id))
-
-    def __repr__(self):
-        return "<User:%s,%s,%s,%s>" % (self.id, self.name, self.email, self.password)
+    chr = db.Column(db.Integer)
+    star = db.Column(db.Integer)
+    ed = db.Column(db.Integer)
+    pam = db.Column(db.VARCHAR(30))
+    ngg = db.Column(db.String(3))
+    info = db.Column(db.VARCHAR(300))
+    ont = db.Column(db.Integer)
+    offt = db.Column(db.Integer)
 
 
 @app.route('/')
@@ -49,16 +38,23 @@ def target():
     return render_template("target.html")
 
 
-@app.route('/result', methods=["GET", "POST"])
+@app.route('/result', methods=["GET","POST"])
 def result():
-    item = request.form.get("item")
-    print(item)
-    find = User.query.filter(User.name == item).all()
-    if find is not None:
-        #print(find.email)
-        return render_template("result.html", result=find)
+    if request.method == "POST":
+        item = request.form.get("item")
+        print(item)
+        find = User.query.filter(User.name == item).all()
+        session["result"] = find
+        if find is not None:
+            return render_template("result.html", result=find)
+        else:
+            return render_template("notfound.html")
     else:
-        return render_template("notfound.html")
+        if "result" in session:
+            return render_template("result.html", result=find)
+        else:
+            return redirect(url_for("design"))
+
 
 
 if __name__ == '__main__':
