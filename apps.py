@@ -1,10 +1,10 @@
-from flask import Flask, redirect, render_template, request, url_for, seession
+from flask import Flask, redirect, render_template, request, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
 app.secret_key = "session"
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://root:root@127.0.0.1:3306/flasktest1"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:pg1960@127.0.0.1:7760//CRISPRTEdb"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # ORM
@@ -23,6 +23,7 @@ class GRNA(db.Model):
     offt = db.Column(db.Integer)
 
 
+
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -30,7 +31,7 @@ def index():
 
 @app.route('/design')
 def design():
-    return render_template("design.html", values = User.query.all())
+    return render_template("design.html")
 
 
 @app.route('/target')
@@ -45,7 +46,7 @@ def result():
         print(item)
         find = User.query.filter(User.name == item).all()
         session["result"] = find
-        if find is not None:
+        if find:
             return render_template("result.html", result=find)
         else:
             return render_template("notfound.html")
@@ -55,7 +56,8 @@ def result():
         else:
             return redirect(url_for("design"))
 
+#@app.route('/detail')
+#def detail():
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
