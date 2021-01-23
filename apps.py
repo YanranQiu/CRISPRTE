@@ -44,7 +44,7 @@ def result():
     if request.method == "POST":
         item = request.form.get("item")
         print(item)
-        find = User.query.filter(User.name == item).all()
+        find = GRNA.query.filter(GRNA.info.contains(item)).limit(5).all()
         session["result"] = find
         if find:
             return render_template("result.html", result=find)
@@ -52,7 +52,7 @@ def result():
             return render_template("notfound.html")
     else:
         if "result" in session:
-            return render_template("result.html", result=find)
+            return render_template("result.html", result=session.get("result"))
         else:
             return redirect(url_for("design"))
 
