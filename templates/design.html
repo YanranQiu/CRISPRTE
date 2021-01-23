@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1> first function </h1>
+  <form method="post" action="/result">
+      <input type="text" name="item" placeholder="type here" required>
+      <input type="submit" value="submit">
+  {% if values%}
+    {% for i in values%}
+      <p>Name: {{i.name}}, Email: {{i.email}}</p>
+    {% endfor %}
+  {% endif %}
+  </form>
+{% endblock %}

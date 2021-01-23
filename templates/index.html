@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1> first function </h1>
+{% endblock %}
+
+{% include 'head.html' ignore missing%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>CRISPRTE</title>
+{#    <link rel="stylesheet" href="{{url_for('static', filename ='css/menu.css')}}">#}
+    <link rel="stylesheet" href="{{url_for('static', filename ='css/head.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename ='css/button.css')}}">
+    <style>
+        * {
+            {#background: #333333;#}
+        }
+    </style>
+</head>
+<body>
+{#    <ul class="menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Instructions</a></li>
+        <li><a href="#">Scoring</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">FAQ</a></li>
+    </ul>#}
+
+    <h1 class="section-title">CRISPRTE</h1>
+    <div class="border"></div>
+    <div class="butt">
+            <a href="{{ url_for('design') }}">
+                <button class="btn" id="butt1">Design gRNA for a subclass</button>
+            </a>
+
+            <a href="{{ url_for('target') }}">
+                <button class="btn" id="butt2">Target whole subclass</button>
+            </a>
+    </div>
+</body>
+</html>

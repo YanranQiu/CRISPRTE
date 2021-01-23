@@ -1,0 +1,13 @@
+.section-title {
+    text-align: center;
+    color: #333333;
+    text-transform: uppercase;
+    font-size: 30px;
+    margin-top: 50px;
+}
+.border {
+    width: 160px;
+    height: 2px;
+    background: #333333;
+    margin: 10px auto;
+}
