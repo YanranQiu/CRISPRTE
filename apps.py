@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.secret_key = "session"
+app.config['SECRET_KEY'] = "session"
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:pg1960@127.0.0.1:7760//CRISPRTEdb"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -13,10 +13,10 @@ db = SQLAlchemy(app)
 class GRNA(db.Model):
     __tablename__ = 'grna'
     id = db.Column(db.Integer, primary_key=True)
-    chr = db.Column(db.Integer)
+    chr = db.Column(db.String(2))
     star = db.Column(db.Integer)
     ed = db.Column(db.Integer)
-    pam = db.Column(db.VARCHAR(30))
+    seq = db.Column(db.String(20))
     ngg = db.Column(db.String(3))
     info = db.Column(db.VARCHAR(300))
     ont = db.Column(db.Integer)
