@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}Results for combination{% endblock %}
+
 {% block content %}
   {% for item in result %}
       {{ item.name }}<br>

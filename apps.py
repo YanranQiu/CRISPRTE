@@ -38,42 +38,47 @@ def combination():
     return render_template("combination.html")
 
 
-@app.route('/result-single', methods=["GET","POST"])
+@app.route('/result-single', methods=["POST"])
 def result_single():
-    if request.method == "POST":
-        item = request.form.get("item")
-        print(item)
-        find = GRNA.query.filter(GRNA.info.contains(item)).limit(5).all()
-        session["result_single"] = find
-        if find:
-            return render_template("result-single.html", result=find)
-        else:
-            return render_template("help.html")
+    # if request.method == "POST":
+    item = request.form.get("item")
+    print(item)
+    find = GRNA.query.filter(GRNA.info.contains(item)).limit(5).all()
+    session["result_single"] = find
+    if find:
+        return render_template("result-single.html", result=find)
     else:
-        if "result_single" in session:
-            return render_template("result-single.html", result=session.get("result_single"))
-        else:
-            return redirect(url_for("single"))
+        return render_template("help.html")
+    # else:
+    #     if "result_single" in session:
+    #         return render_template("result-single.html", result=session.get("result_single"))
+    #     else:
+    #         return redirect(url_for("single"))
 
-@app.route('/result-combination', methods=["GET","POST"])
+@app.route('/result-combination', methods=["POST"])
 def result_combination():
-    if request.method == "POST":
-        item = request.form.get("item")
-        print(item)
-        find = GRNA.query.filter(GRNA.info.contains(item)).limit(5).all()
-        session["result_combination"] = find
-        if find:
-            return render_template("result-combination.html", result=find)
-        else:
-            return render_template("help.html")
+    # if request.method == "POST":
+    item = request.form.get("item")
+    print(item)
+    find = GRNA.query.filter(GRNA.info.contains(item)).limit(5).all()
+    session["result_combination"] = find
+    if find:
+        return render_template("result-combination.html", result=find)
     else:
-        if "result_combination" in session:
-            return render_template("result-combination.html", result=session.get("result_combination"))
-        else:
-            return redirect(url_for("combination"))
+        return render_template("help.html")
+    # else:
+    #     if "result_combination" in session:
+    #         return render_template("result-combination.html", result=session.get("result_combination"))
+    #     else:
+    #         return redirect(url_for("combination"))
 
-#@app.route('/detail')
-#def detail():
+@app.route('/help')
+def help():
+    return render_template("help.html")
+
+@app.route('/detail/<grna>')
+def detail():
+    return render_template("detail.html",grna=grna)
 
 if __name__ == "__main__":
     app.run(debug=True)
