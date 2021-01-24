@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for item in result %}
+      {{ item.name }}<br>
+  {% endfor %}
+  <table>
+    <thread>
+        <th>chr</th>
+        <th>start</th>
+        <th>end</th>
+    </thread>
+    {% for item in result %}
+        <tr>
+            <td>{{ item.chr }}</td>
+            <td>{{ item.star }}</td>
+            <td>{{ item.ed }}</td>
+            <td>{{ item.pam }}</td>
+            <td>{{ item.ngg }}</td>
+            <td>{{ item.ed }}</td>
+        </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

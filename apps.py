@@ -23,7 +23,6 @@ class GRNA(db.Model):
     offt = db.Column(db.Integer)
 
 
-
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -39,20 +38,37 @@ def target():
     return render_template("target.html")
 
 
-@app.route('/result', methods=["GET","POST"])
-def result():
+@app.route('/result-design', methods=["GET","POST"])
+def result_design():
     if request.method == "POST":
         item = request.form.get("item")
         print(item)
         find = GRNA.query.filter(GRNA.info.contains(item)).limit(5).all()
-        session["result"] = find
+        session["result_design"] = find
         if find:
-            return render_template("result.html", result=find)
+            return render_template("result-design.html", result=find)
         else:
-            return render_template("notfound.html")
+            return render_template("help.html")
     else:
-        if "result" in session:
-            return render_template("result.html", result=session.get("result"))
+        if "result_design" in session:
+            return render_template("result-design.html", result=session.get("result_design"))
+        else:
+            return redirect(url_for("design"))
+
+@app.route('/result-target', methods=["GET","POST"])
+def result_target():
+    if request.method == "POST":
+        item = request.form.get("item")
+        print(item)
+        find = GRNA.query.filter(GRNA.info.contains(item)).limit(5).all()
+        session["result_target"] = find
+        if find:
+            return render_template("result-target.html", result=find)
+        else:
+            return render_template("help.html")
+    else:
+        if "result_target" in session:
+            return render_template("result-target.html", result=session.get("result_target"))
         else:
             return redirect(url_for("design"))
 
