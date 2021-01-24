@@ -28,49 +28,49 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/design')
-def design():
-    return render_template("design.html")
+@app.route('/single')
+def single():
+    return render_template("single.html")
 
 
-@app.route('/target')
-def target():
-    return render_template("target.html")
+@app.route('/combination')
+def combination():
+    return render_template("combination.html")
 
 
-@app.route('/result-design', methods=["GET","POST"])
-def result_design():
+@app.route('/result-single', methods=["GET","POST"])
+def result_single():
     if request.method == "POST":
         item = request.form.get("item")
         print(item)
         find = GRNA.query.filter(GRNA.info.contains(item)).limit(5).all()
-        session["result_design"] = find
+        session["result_single"] = find
         if find:
-            return render_template("result-design.html", result=find)
+            return render_template("result-single.html", result=find)
         else:
             return render_template("help.html")
     else:
-        if "result_design" in session:
-            return render_template("result-design.html", result=session.get("result_design"))
+        if "result_single" in session:
+            return render_template("result-single.html", result=session.get("result_single"))
         else:
-            return redirect(url_for("design"))
+            return redirect(url_for("single"))
 
-@app.route('/result-target', methods=["GET","POST"])
-def result_target():
+@app.route('/result-combination', methods=["GET","POST"])
+def result_combination():
     if request.method == "POST":
         item = request.form.get("item")
         print(item)
         find = GRNA.query.filter(GRNA.info.contains(item)).limit(5).all()
-        session["result_target"] = find
+        session["result_combination"] = find
         if find:
-            return render_template("result-target.html", result=find)
+            return render_template("result-combination.html", result=find)
         else:
             return render_template("help.html")
     else:
-        if "result_target" in session:
-            return render_template("result-target.html", result=session.get("result_target"))
+        if "result_combination" in session:
+            return render_template("result-combination.html", result=session.get("result_combination"))
         else:
-            return redirect(url_for("design"))
+            return redirect(url_for("combination"))
 
 #@app.route('/detail')
 #def detail():

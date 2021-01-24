@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>{% block title %}{% endblock %}</title>
   <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{url_for('static', filename ='css/menu.css')}}">
 
 </head>
 <body>
-
+  <ul class="menu">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Instructions</a></li>
+      <li><a href="#">Scoring</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">FAQ</a></li>
+  </ul>
   <header class="site-header">
     <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
       <div class="container">
@@ -33,7 +40,7 @@
       </div>
     </nav>
   </header>
-  
+
   <main role="main" class="container">
     <div class="row">
       <div class="col-md-8">
