@@ -43,17 +43,31 @@ def result_single():
     # if request.method == "POST":
     item = request.form.get("item")
     print(item)
-    find = GRNA.query.filter(GRNA.info.contains(item)).limit(5).all()
-    session["result_single"] = find
-    if find:
-        return render_template("result-single.html", result=find)
+    if item includes 'dup':
+        find = GRNA.query.filter(GRNA.info.contains(item)).limit(5).all()
+        if find:
+            return redirect(url_for("result_single_dup"), =find)
+        else:
+            return render_template("help.html")
     else:
-        return render_template("help.html")
+        find = GRNA.query.filter(GRNA.info.contains(item)).limit(5).all()
+        if find:
+            return redirect(url_for("result_single_subclass"), =find)
+        else:
+            return render_template("help.html")
     # else:
     #     if "result_single" in session:
     #         return render_template("result-single.html", result=session.get("result_single"))
     #     else:
     #         return redirect(url_for("single"))
+
+@app.route('/result-single-dup', methods=["POST"])
+def result_single_dup(find):
+    return render_template("result-single-dup.html")
+
+@app.route('/result-single-subclass', methods=["POST"])
+def result_single_subclass():
+    return render_template("result-single-subclass.html")
 
 @app.route('/result-combination', methods=["POST"])
 def result_combination():
